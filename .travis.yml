@@ -31,10 +31,25 @@ jobs:
       name: test
       before_script:
         - cd $TRAVIS_BUILD_DIR && ./mvnw
-        #- wait_for 8000 8080
+        - java -jar $TRAVIS_BUILD_DIR/gateway/target/*.jar &
+        - java -jar $TRAVIS_BUILD_DIR/spring-cloud-functions/target/*.jar &
+        - wait_for 8000 8080
       script:
-        - http https://google.com/
-      after_script: echo "cd $TRAVIS_BUILD_DIR && docker-compose down -v --rmi local"
+        - http :8080/api/function name=java far=jar
+      after_script: stop_any 80 8000 8080
+    - stage: test
+      name: docker
+      before_script:
+        - cd $TRAVIS_BUILD_DIR && ./mvnw
+        - cd $TRAVIS_BUILD_DIR && docker-compose down -v --rmi local
+        - cd $TRAVIS_BUILD_DIR && docker-compose pull --ignore-pull-failures
+        - cd $TRAVIS_BUILD_DIR && docker-compose up --build -d
+        - cd $TRAVIS_BUILD_DIR && docker-compose logs -f -t &
+        - wait_for 80
+        - sleep 15s
+      script:
+        - http :/api/function name=docker kind=docker-compose
+      after_script: cd $TRAVIS_BUILD_DIR && docker-compose down -v --rmi local
 cache:
   pip: true
   packages: true
