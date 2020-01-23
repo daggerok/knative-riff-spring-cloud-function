@@ -1,0 +1,50 @@
+POST http://localhost:8080/api/function
+Accept: application/json
+Content-Type: application/json
+
+{
+  "ololo": "trololo",
+  "hohoho": "nonono",
+  "name": "heylo"
+}
+
+###
+POST http://localhost:8080/api/consumer
+Accept: application/json
+Content-Type: application/json
+
+{
+  "ololo": "trololo",
+  "hohoho": "nonono"
+}
+
+###
+GET http://localhost:8080/api/supplier
+Accept: application/json
+Content-Type: application/json
+
+###
+GET http://localhost:8000/supplier
+Accept: application/json
+Content-Type: application/json
+
+###
+POST http://localhost:8000/function
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Max"
+}
+
+###
+POST http://localhost:8000/consumer
+Accept: application/json
+Content-Type: application/json
+
+{
+  "ololo": "Trololo"
+}
+
+###
+
