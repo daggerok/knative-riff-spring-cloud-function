@@ -1,9 +1,9 @@
-# Getting Started
-Project riff | Spring Cloud Functions | KNative
+# knative-riff-spring-cloud-function [![Build Status](https://travis-ci.org/daggerok/knative-riff-spring-cloud-function.svg?branch=master)](https://travis-ci.org/daggerok/knative-riff-spring-cloud-function)
+Project riff | KNative | Spring Cloud Functions | Spring Cloud Gateway
 
 Status: IN PROGRESS
 
----
+## plain java
 
 request:
 
@@ -28,6 +28,8 @@ response:
 
 ---
 
+request:
+
 ```bash
 http post :8080/api/function name=gw
 # output:
@@ -45,13 +47,21 @@ x-forwarded-prefix: /api
 x-forwarded-proto: http
 ```
 
+response:
+
 ```json
 {
   "upper": "GW"
 }
 ```
 
----
+## docker / docker-compose
+
+```bash
+docker-compose build --force-rm --no-cache
+docker-compose up --build
+http :/api/function name=docker
+```
 
 ## resources
 

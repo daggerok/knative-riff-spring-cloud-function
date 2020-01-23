@@ -1,0 +1,19 @@
+version: '3.7'
+networks:
+  overlay:
+services:
+  # apk add --no-cache httpie
+  # http :8080/api/function name=docker
+  gateway:
+    build: ./gateway
+    image: daggerok/gateway:latest
+    networks: [overlay]
+    ports: ['80:8080']
+    deploy:
+      replicas: 2
+  spring-cloud-functions:
+    build: ./spring-cloud-functions
+    image: daggerok/spring-cloud-functions:latest
+    networks: [overlay]
+    deploy:
+      replicas: 3

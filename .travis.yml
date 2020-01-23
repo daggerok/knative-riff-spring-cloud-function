@@ -1,0 +1,43 @@
+notifications:
+  email: false
+git:
+  quiet: true
+  depth: false
+jdk: openjdk11
+os: linux
+addons:
+  apt:
+    packages:
+      - curl
+      - sudo
+      - lsof
+      - docker-ce
+install: true
+before_install:
+  - |
+    if [ ! -f ${HOME}/.local/daggerok/bash-functions/master/main.bash ] ; then
+      mkdir -p ${HOME}/.local/daggerok/bash-functions/master ;
+      curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash > ${HOME}/.local/daggerok/bash-functions/master/main.bash ;
+    fi
+    source ${HOME}/.local/daggerok/bash-functions/master/main.bash ;
+  - stop_any 80 8000 8080
+  #
+  - python -m pip install --upgrade httpie docker-compose
+language: python
+python: 3.8
+jobs:
+  include:
+    - stage: test
+      name: test
+      before_script:
+        - cd $TRAVIS_BUILD_DIR && ./mvnw
+        #- wait_for 8000 8080
+      script:
+        - http https://google.com/
+      after_script: echo "cd $TRAVIS_BUILD_DIR && docker-compose down -v --rmi local"
+cache:
+  pip: true
+  packages: true
+  directories:
+    - ~/.docker
+    - ~/.m2
