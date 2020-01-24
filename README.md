@@ -115,7 +115,7 @@ riff function create square \
 ## resources
 
 * [YouTube: KNative and riff for Spring Developers](https://www.youtube.com/watch?v=zCObFAhrhJM)
-* https://www.youtube.com/watch?v=jOawuL1Xnwo
+* [YouTube: Living on the Edge with Spring Cloud Gateway](https://www.youtube.com/watch?v=jOawuL1Xnwo)
 * [Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway)
 * [Project riff](https://projectriff.io/docs/v0.4/getting-started/docker-for-mac)
 
